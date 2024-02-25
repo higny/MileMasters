@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+    <nav id="general-menu" class="bd-gutter navbar navbar-expand-lg sticky-top bg-primary" aria-label="Menu principal de MileMasters">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#general-menu-mini"
+                    aria-controls="general-menu-mini" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse d-lg-flex" id="general-menu-mini">
+                <div class="d-lg-flex col-lg-3 justify-content-lg-center">
+                    <a class="navbar-brand col-lg-6" href="{{ path('home.index') }}">MileMasters</a>
+                </div>
+                <ul class="navbar-nav col-lg-6 justify-content-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link {{ app.current_route starts with 'home.' ? 'active' : ''}}" href="{{ path('home.index') }}">Acceuil</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link  {{ app.current_route starts with 'class.' ? 'active' : ''}}" href="{{ path('class.index') }}">Classes</a></li>
+                    <li class="nav-item"><a class="nav-link  {{ app.current_route starts with 'test.' ? 'active' : ''}}" href="{{ path('test.index') }}">Epreuves</a></li>
+                    <li class="nav-item"><a class="nav-link  {{ app.current_route starts with 'student.' ? 'active' : ''}}" href="{{ path('student.index') }}">Etudiants</a></li>
+                    <li class="nav-item"><a class="nav-link  {{ app.current_route starts with 'entry.' ? 'active' : ''}}" href="{{ path('entry.index') }}">Inscriptions</a></li>
+                    <li class="nav-item"><a class="nav-link  {{ app.current_route starts with 'arrival.' ? 'active' : ''}}" href="{{ path('arrival.index') }}">Arrivées</a></li>
+                </ul>
+                <div class="d-lg-flex col-lg-3 justify-content-lg-end">
+                    <ul class="navbar-nav col-lg-6 justify-content-lg-center">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i
+                                        class="bi bi-gear-fill"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="./admin.html">Paramètres</a></li>
+                                <li>
+                                    <hr class="dropdown-divider" />
+                                </li>
+                                <li><a class="dropdown-item" href="./login.html">Déconnexion</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div id="main-container" class="container-fluid">
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}
