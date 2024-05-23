@@ -1,18 +1,48 @@
 {% extends 'menu-layout.html.twig' %}
 
 {% block content %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/wamp64/www/MileMasters/src/Controller/EntryController.php</code></li>
-        <li>Your template at <code>C:/wamp64/www/MileMasters/templates/entry/index.html.twig</code></li>
-    </ul>
+<div class="row g-4 row-cols-1 row-cols-lg-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Acceuil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Inscriptions</li>
+        </ol>
+    </nav>
 </div>
+<div class="row g-4 row-cols-1 row-cols-lg-5 justify-content-md-end">
+    <a class="btn btn-success btn-sm" href="{{ path('test.create')}}" role="button">Créer une inscription</a>
+</div>
+<div class="row g-4 row-cols-1 row-cols-lg-5">
+    <table class="table table-hover table-striped ">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">N° Dossard</th>
+            <th scope="col">Participant</th>
+            <th scope="col">Épreuve</th>
+            <th scope="col">Type</th>
+            <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        {% for entry in entries %}
+            <tr>
+                <th scope="row">{{ entry.id}}</th>
+                <td>{{ entry.NoDos }}</td>
+                <td>{{ entry.student.Prenom }} {{ entry.student.Nom }}</td>
+                <td>{{ entry.test.Name }}</td>
+                <td>{{ entry.Rw ? 'Course' : 'Marche' }}</td>
+                <td></td>
+                <td width="150px">
+                    <a class="btn btn-primary btn-sm" href="{{ path('entry.detail',{'id': entry.id}) }}" role="button"><i class="bi bi-eye-fill"></i></a>
+                    <a class="btn btn-success btn-sm" href="{{ path('entry.edit',{'id': entry.id}) }}" role="button"><i class="bi bi-pencil-fill"></i></a>
+                    <a class="btn btn-danger btn-sm" href="{{ path('entry.delete',{'id': entry.id}) }}" role="button"><i class="bi bi-trash-fill"></i></a>            
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% include 'shared/flash.html.twig' %}
+
 {% endblock %}

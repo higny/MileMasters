@@ -1,17 +1,268 @@
 {% extends 'menu-layout.html.twig' %}
 
-{% block content %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/wamp64/www/MileMasters/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>C:/wamp64/www/MileMasters/templates/home/index.html.twig</code></li>
-    </ul>
-</div>
+{% block content %}
+    <div data-controller="home" class="row">
+        <div class="col-12">
+            <div class="my-4 text-center">
+                <h1 class="display-5 fw-bold text-body-emphasis">Bienvenue sur MileMasters</h1>
+                <div class="col-lg-12 mx-auto">
+                    <p class="lead mb-4">Vous trouverez sur cette page les statistiques des 10 dernières épreuves terminée !</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 row-cols-1 row-cols-lg-4">
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h6 class="my-0 fw-normal">Marathon de Boston</h6>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-6">Date</dt>
+                        <dd class="col-sm-6">19 Mars 2023</dd>
+                        <dt class="col-sm-6">Distance</dt>
+                        <dd class="col-sm-6">10 Km</dd>
+                    </dl>
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                <canvas id="myChart1"></canvas>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h6 class="my-0 fw-normal">Marathon de New York</h6>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-6">Date</dt>
+                        <dd class="col-sm-6">19 Mars 2023</dd>
+                        <dt class="col-sm-6">Distance</dt>
+                        <dd class="col-sm-6">10 Km</dd>
+                    </dl>
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                <canvas id="myChart2"></canvas>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h6 class="my-0 fw-normal">Marathon de Londres</h6>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-6">Date</dt>
+                        <dd class="col-sm-6">19 Mars 2023</dd>
+                        <dt class="col-sm-6">Distance</dt>
+                        <dd class="col-sm-6">10 Km</dd>
+                    </dl>
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                <canvas id="myChart3"></canvas>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h6 class="my-0 fw-normal">Marathon de Berlin</h6>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-6">Date</dt>
+                        <dd class="col-sm-6">19 Mars 2023</dd>
+                        <dt class="col-sm-6">Distance</dt>
+                        <dd class="col-sm-6">10 Km</dd>
+                    </dl>
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                <canvas id="myChart4"></canvas>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row g-4 row-cols-1 row-cols-lg-4">
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h6 class="my-0 fw-normal">Marathon de Tokyo</h6>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-6">Date</dt>
+                        <dd class="col-sm-6">19 Mars 2023</dd>
+                        <dt class="col-sm-6">Distance</dt>
+                        <dd class="col-sm-6">10 Km</dd>
+                    </dl>
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                <canvas id="myChart5"></canvas>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h6 class="my-0 fw-normal">Marathon de Chicago</h6>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-6">Date</dt>
+                        <dd class="col-sm-6">19 Mars 2023</dd>
+                        <dt class="col-sm-6">Distance</dt>
+                        <dd class="col-sm-6">10 Km</dd>
+                    </dl>
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                <canvas id="myChart6"></canvas>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h6 class="my-0 fw-normal">Marathon de Paris</h6>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-6">Date</dt>
+                        <dd class="col-sm-6">19 Mars 2023</dd>
+                        <dt class="col-sm-6">Distance</dt>
+                        <dd class="col-sm-6">10 Km</dd>
+                    </dl>
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                <canvas id="myChart7"></canvas>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h6 class="my-0 fw-normal">Ultra-Trail du Mont-Blanc</h6>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-6">Date</dt>
+                        <dd class="col-sm-6">19 Mars 2023</dd>
+                        <dt class="col-sm-6">Distance</dt>
+                        <dd class="col-sm-6">10 Km</dd>
+                    </dl>
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                <canvas id="myChart8"></canvas>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row g-4 row-cols-1 row-cols-lg-4">
+
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h6 class="my-0 fw-normal">La Diagonale des Fous</h6>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-6">Date</dt>
+                        <dd class="col-sm-6">19 Mars 2023</dd>
+                        <dt class="col-sm-6">Distance</dt>
+                        <dd class="col-sm-6">10 Km</dd>
+                    </dl>
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                <canvas id="myChart9"></canvas>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h6 class="my-0 fw-normal">Le semi de Volaiville</h6>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-6">Date</dt>
+                        <dd class="col-sm-6">19 Mars 2023</dd>
+                        <dt class="col-sm-6">Distance</dt>
+                        <dd class="col-sm-6">10 Km</dd>
+                    </dl>
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                <canvas id="myChart10"></canvas>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

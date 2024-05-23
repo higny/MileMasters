@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+    <div class="modal modal-sheet d-block" tabindex="-1" role="dialog" id="modalChoice">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content rounded-3 shadow">
+                <div class="modal-body p-4 text-center">
+                    <form method="post">
+                        <h1 class="h3 mb-3 fw-normal">Bienvenue sur MileMasters !</h1>
+
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+
+                        <div class="form-floating mb-3">
+                            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus placeholder="Nom d'utilisateur">
+                            <label for="inputUsername"><i class="bi bi-person-fill"></i> Utilisateur</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe">
+                            <label for="inputPassword"><i class="bi bi-unlock-fill"></i> Mot de passe</label>
+                        </div>
+
+                        <input type="hidden" name="_csrf_token"
+                               value="{{ csrf_token('authenticate') }}"
+                        >
+
+                        <button class="btn btn-primary w-100 py-2" type="submit">Connexion</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'menu-layout.html.twig' %}
+
+{% block content %}
+<div class="row">
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Acceuil</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('test.index') }}">Inscriptions</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{entry.NoDos}}</li>
+    </ol>
+    </nav>
+</div>
+<div class="row justify-content-md-end">
+    <div class="col-4 d-flex gap-2 justify-content-md-end">
+        <a class="btn btn-success btn-sm" href="{{ path('entry.edit',{'id': entry.id}) }}" role="button"><i class="bi bi-pencil-fill"></i> Modifier</a>
+        <a class="btn btn-danger btn-sm" href="{{ path('entry.delete',{'id': entry.id}) }}" role="button"><i class="bi bi-trash-fill"></i> Supprimer</a>
+    </div>
+</div>
+    <div class="card mt-5">
+        <div class="card-header">Détails</div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">N° Dossard</dt>
+                <dd class="col-sm-9">{{entry.NoDos}}</dd>
+                <dt class="col-sm-3">Type</dt>
+                <dd class="col-sm-9">{{ entry.Rw ? 'Course' : 'Marche' }}</dd>
+                <dt class="col-sm-3">Heure de départ</dt>
+                <dd class="col-sm-9">{{ entry.tstart| date('H:i') }}</dd>
+                <dt class="col-sm-3">Heure d'arrivée</dt>
+                <dd class="col-sm-9">{{ entry.tend| date('H:i') }}</dd>
+                <dt class="col-sm-3">Temps</dt>
+                <dd class="col-sm-9">{{ entry.Temps }}</dd>
+                <dt class="col-sm-3">Participant</dt>
+                <dd class="col-sm-9">{{ entry.student.Prenom }} {{ entry.student.Nom }}</dd>
+                <dt class="col-sm-3">Épreuve</dt>
+                <dd class="col-sm-9">{{ entry.test.Name }}</dd>
+            </dl>
+        </div>
+    </div>
+{% endblock %}

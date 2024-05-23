@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+    <div class="modal modal-sheet d-block" tabindex="-1" role="dialog" id="modalChoice">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content rounded-3 shadow">
+                <div class="modal-body p-4 text-center">
+                    <form method="post">
+                        <h1 class="h3 mb-3 fw-normal">Bienvenue sur MileMasters !</h1>
+                        <h5 class="h5 mb-3 fw-normal">Il n'y a pas encore de compte administrateur, veuillez en créer un !</h5>
+
+                        {{ form_errors(registrationForm) }}
+
+                        {{ form_start(registrationForm) }}
+                        {{ form_row(registrationForm.username) }}
+                        {{ form_row(registrationForm.plainPassword) }}
+
+                        <button class="btn btn-primary w-100 py-2" type="submit">Créer le compte</button>
+                        {{ form_end(registrationForm) }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

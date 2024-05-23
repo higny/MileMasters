@@ -1,0 +1,47 @@
+{% extends 'menu-layout.html.twig' %}
+
+{% block content %}
+<div class="row">
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Acceuil</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('test.index') }}">Épreuves</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{test.Name}}</li>
+    </ol>
+    </nav>
+</div>
+<div class="row justify-content-md-end">
+    <div class="col-4 d-flex gap-2 justify-content-md-end">
+        <a class="btn btn-success btn-sm" href="{{ path('test.edit',{'id': test.id}) }}" role="button"><i class="bi bi-pencil-fill"></i> Modifier</a>
+        <a class="btn btn-danger btn-sm" href="{{ path('test.delete',{'id': test.id}) }}" role="button"><i class="bi bi-trash-fill"></i> Supprimer</a>
+    </div>
+</div>
+    <div class="card mt-5">
+        <div class="card-header">Détails</div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Nom</dt>
+                <dd class="col-sm-9">{{test.name}}</dd>
+                <dt class="col-sm-3">Date</dt>
+                <dd class="col-sm-9">{{ test.date | date('d/m/Y') }}</dd>
+                <dt class="col-sm-3">Heure de départ</dt>
+                <dd class="col-sm-9">{{ test.tstart| date('H:i') }}</dd>
+                <dt class="col-sm-3">Distance</dt>
+                <dd class="col-sm-9">{{ test.Dist }} KM</dd>
+                <dt class="col-sm-3">Nombre de participants</dt>
+                <dd class="col-sm-9">-</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="card mt-5">
+        <div class="card-header">Inscriptions</div>
+        <div class="card-body">
+            <div class="list-group list-group-flush">
+                {% for entry in test.entries %}
+                    <a href="{{ path('entry.detail',{'id': entry.id}) }}" class="list-group-item list-group-item-action">{{ entry.NoDos}} - {{entry.student.Prenom}} {{entry.student.Nom}}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

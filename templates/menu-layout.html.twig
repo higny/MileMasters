@@ -21,8 +21,8 @@
                         <a class="nav-link {{ app.current_route starts with 'home.' ? 'active' : ''}}" href="{{ path('home.index') }}">Acceuil</a>
                     </li>
                     <li class="nav-item"><a class="nav-link  {{ app.current_route starts with 'class.' ? 'active' : ''}}" href="{{ path('class.index') }}">Classes</a></li>
-                    <li class="nav-item"><a class="nav-link  {{ app.current_route starts with 'test.' ? 'active' : ''}}" href="{{ path('test.index') }}">Epreuves</a></li>
-                    <li class="nav-item"><a class="nav-link  {{ app.current_route starts with 'student.' ? 'active' : ''}}" href="{{ path('student.index') }}">Etudiants</a></li>
+                    <li class="nav-item"><a class="nav-link  {{ app.current_route starts with 'test.' ? 'active' : ''}}" href="{{ path('test.index') }}">Épreuves</a></li>
+                    <li class="nav-item"><a class="nav-link  {{ app.current_route starts with 'student.' ? 'active' : ''}}" href="{{ path('student.index') }}">Étudiants</a></li>
                     <li class="nav-item"><a class="nav-link  {{ app.current_route starts with 'entry.' ? 'active' : ''}}" href="{{ path('entry.index') }}">Inscriptions</a></li>
                     <li class="nav-item"><a class="nav-link  {{ app.current_route starts with 'arrival.' ? 'active' : ''}}" href="{{ path('arrival.index') }}">Arrivées</a></li>
                 </ul>
@@ -36,7 +36,7 @@
                                 <li>
                                     <hr class="dropdown-divider" />
                                 </li>
-                                <li><a class="dropdown-item" href="./login.html">Déconnexion</a></li>
+                                <li><a class="dropdown-item" href="{{ path('logout.index') }}">Déconnexion</a></li>
                             </ul>
                         </li>
                     </ul>

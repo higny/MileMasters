@@ -1,18 +1,47 @@
 {% extends 'menu-layout.html.twig' %}
 
 {% block content %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/wamp64/www/MileMasters/src/Controller/ClassController.php</code></li>
-        <li>Your template at <code>C:/wamp64/www/MileMasters/templates/class/index.html.twig</code></li>
-    </ul>
+<div class="row g-4 row-cols-1 row-cols-lg-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Acceuil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Classes</li>
+        </ol>
+    </nav>
 </div>
+<div class="row g-4 row-cols-1 row-cols-lg-5 justify-content-md-end">
+    <a class="btn btn-success btn-sm disabled" href="{{ path('class.create')}}" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Feature désactivée dans cette version">Créer une classe</a>
+</div>
+<div class="row g-4 row-cols-1 row-cols-lg-5">
+    <table class="table table-hover table-striped ">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Identifiant</th>
+            <th scope="col">Niveau</th>
+            <th scope="col">Nombre d'étudiants</th>
+            <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        {% for class in classes %}
+            <tr>
+                <th scope="row">{{ class.id}}</th>
+                <td>{{ class.ident }}</td>
+                <td>{{ class.niv }}</td>
+                <td>{{ class.students|length }}</td>
+                <td width="150px">
+                    <a class="btn btn-primary btn-sm" href="{{ path('class.detail',{'id': class.id}) }}" role="button"><i class="bi bi-eye-fill"></i></a>
+                    <a class="btn btn-success btn-sm" href="{{ path('class.edit',{'id': class.id}) }}" role="button"><i class="bi bi-pencil-fill"></i></a>
+                    {% if class.students|length < 2 %}
+                    <a class="btn btn-danger btn-sm" href="{{ path('class.delete',{'id': class.id}) }}" role="button"><i class="bi bi-trash-fill"></i></a>            
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% include 'shared/flash.html.twig' %}
+
 {% endblock %}

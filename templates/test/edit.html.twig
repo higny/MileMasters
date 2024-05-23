@@ -1,0 +1,15 @@
+{% extends 'menu-layout.html.twig' %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Acceuil</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('test.index') }}">Épreuves</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('test.detail',{'id': test.id}) }}">{{test.Name}}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Modifier</li>
+    </ol>
+</nav>
+<h1>Modifier l'épreuve</h1>
+
+    {{ form(form) }}
+{% endblock %}

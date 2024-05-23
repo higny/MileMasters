@@ -1,0 +1,15 @@
+{% extends 'menu-layout.html.twig' %}
+
+{% block content %}
+    <main>
+        <div class="px-4 py-5 my-5 text-center">
+            <h1 class="display-6 fw-bold text-body-emphasis">404 Not found !</h1>
+            <div class="col-lg-6 mx-auto">
+                <p class="lead mb-4">{{ message }}</p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a href="{{ path(redirectLink) }}" class="btn btn-success btn-lg px-4 gap-3">{{ redirectLabel }}</a>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

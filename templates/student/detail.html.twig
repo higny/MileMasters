@@ -1,0 +1,45 @@
+{% extends 'menu-layout.html.twig' %}
+
+{% block content %}
+<div class="row">
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Acceuil</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('student.index') }}">Étudiants</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{student.Prenom}} {{student.Nom}}</li>
+    </ol>
+    </nav>
+</div>
+<div class="row justify-content-md-end">
+    <div class="col-4 d-flex gap-2 justify-content-md-end">
+        <a class="btn btn-success btn-sm" href="{{ path('student.edit',{'id': student.id}) }}" role="button"><i class="bi bi-pencil-fill"></i> Modifier</a>
+        <a class="btn btn-danger btn-sm" href="{{ path('student.delete',{'id': student.id}) }}" role="button"><i class="bi bi-trash-fill"></i> Supprimer</a>
+    </div>
+</div>
+    <div class="card mt-5">
+        <div class="card-header">Détails</div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">ID</dt>
+                <dd class="col-sm-9">{{student.Id}}</dd>
+                <dt class="col-sm-3">Nom</dt>
+                <dd class="col-sm-9">{{student.Nom}}</dd>
+                <dt class="col-sm-3">Sexe</dt>
+                <dd class="col-sm-9">{{student.Sexe}}</dd>
+                <dt class="col-sm-3">Classe</dt>
+                <dd class="col-sm-9"><a class="btn btn-link ps-0" href="{{ path('class.detail',{'id': student.Class.id}) }}" role="button">{{ student.Class.Ident }}</a></dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="card mt-5">
+        <div class="card-header">Inscriptions</div>
+        <div class="card-body">
+            <div class="list-group list-group-flush">
+                {% for entry in student.entries %}
+                    <a href="{{ path('entry.detail',{'id': entry.id}) }}" class="list-group-item list-group-item-action">{{ entry.NoDos}} - {{entry.Test.Name}}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
