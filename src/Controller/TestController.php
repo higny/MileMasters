@@ -7,8 +7,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Test;
+use App\Entity\Entry;
 use App\Form\TestType;
 use App\Repository\TestRepository;
 
@@ -51,16 +53,32 @@ class TestController extends AbstractController
     }
 
     #[Route('/{id}', name:'test.detail')]
-    public function getDetail(int $id, TestRepository $repository): Response
+    public function getDetail(int $id, TestRepository $repository, EntityManagerInterface $em): Response
     {
         $test = $repository->findOneBy(['id' => $id]);
         if ($test != null) {
+            $runners = $em->getRepository(Entry::class)->findEntriesWithTendAndOrderedByTemps($id, true);
+            $walkers = $em->getRepository(Entry::class)->findEntriesWithTendAndOrderedByTemps($id, false);
+
             return $this->render('test/detail.html.twig', [
                 'test' => $test,
+                'runners' => $runners,
+                'walkers' => $walkers
             ]);
         }
 
         return $this->notFound();
+    }
+
+    #[Route('/{id}/json', name:'test.detail.json')]
+    public function getDetailJson(int $id, TestRepository $repository): Response
+    {
+        $test = $repository->findOneBy(['id' => $id]);
+        if ($test != null) {
+            return new JsonResponse(['Tstart' => $test->getTstart()]);
+        }
+
+        return new JsonResponse(['error' => 'Entity not found !'], 404);
     }
 
     #[Route('/{id}/edit', name:'test.edit')]

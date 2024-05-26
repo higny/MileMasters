@@ -1,16 +1,17 @@
 {% extends 'menu-layout.html.twig' %}
-
 {% block content %}
-<div class="row g-4 row-cols-1 row-cols-lg-5">
+<div data-controller="class" class="row g-4 row-cols-1 row-cols-lg-5">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Acceuil</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Accueil</a></li>
             <li class="breadcrumb-item active" aria-current="page">Classes</li>
         </ol>
     </nav>
 </div>
 <div class="row g-4 row-cols-1 row-cols-lg-5 justify-content-md-end">
-    <a class="btn btn-success btn-sm disabled" href="{{ path('class.create')}}" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Feature désactivée dans cette version">Créer une classe</a>
+    <span class="d-grid p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Feature désactivée dans cette version">
+        <a class="btn btn-success btn-sm disabled" href="{{ path('class.create')}}" role="button">Créer une classe</a>
+    </span>
 </div>
 <div class="row g-4 row-cols-1 row-cols-lg-5">
     <table class="table table-hover table-striped ">
@@ -30,12 +31,8 @@
                 <td>{{ class.ident }}</td>
                 <td>{{ class.niv }}</td>
                 <td>{{ class.students|length }}</td>
-                <td width="150px">
+                <td width="50px">
                     <a class="btn btn-primary btn-sm" href="{{ path('class.detail',{'id': class.id}) }}" role="button"><i class="bi bi-eye-fill"></i></a>
-                    <a class="btn btn-success btn-sm" href="{{ path('class.edit',{'id': class.id}) }}" role="button"><i class="bi bi-pencil-fill"></i></a>
-                    {% if class.students|length < 2 %}
-                    <a class="btn btn-danger btn-sm" href="{{ path('class.delete',{'id': class.id}) }}" role="button"><i class="bi bi-trash-fill"></i></a>            
-                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
@@ -43,5 +40,4 @@
     </table>
 </div>
 {% include 'shared/flash.html.twig' %}
-
 {% endblock %}

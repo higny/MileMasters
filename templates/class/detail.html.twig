@@ -4,7 +4,7 @@
 <div class="row">
     <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Acceuil</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Accueil</a></li>
         <li class="breadcrumb-item"><a href="{{ path('class.index') }}">Classes</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{class.Ident}}</li>
     </ol>
@@ -35,11 +35,30 @@
     <div class="card mt-5">
         <div class="card-header">Étudiants</div>
         <div class="card-body">
-            <div class="list-group list-group-flush">
-                {% for student in class.students %}
-                    <a href="{{ path('student.detail',{'id': student.id}) }}" class="list-group-item list-group-item-action">{{ student.Prenom }} {{ student.Nom}}</a>
-                {% endfor %}
-            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Sexe</th>
+                    <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for student in class.students %}
+                    <tr>
+                        <th scope="row">{{student.id}}</th>
+                        <td>{{ student.Prenom }}</td>
+                        <td>{{ student.Nom }}</td>
+                        <td><i class="bi bi-gender-{{ student.Sexe ? 'male' : 'female' }}"></i></td>
+                        <td width="50px">
+                            <a class="btn btn-primary btn-sm" href="{{ path('student.detail',{'id': student.id}) }}" role="button"><i class="bi bi-eye-fill"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}

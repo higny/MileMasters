@@ -58,7 +58,7 @@ class Test
         return $this->Tstart;
     }
 
-    public function setTstart(\DateTimeInterface $Tstart): static
+    public function setTstart(?\DateTimeInterface $Tstart): static
     {
         $this->Tstart = $Tstart;
 

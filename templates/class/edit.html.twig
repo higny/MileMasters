@@ -3,9 +3,10 @@
 {% block content %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Acceuil</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Accueil</a></li>
         <li class="breadcrumb-item"><a href="{{ path('class.index') }}">Classes</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Modifier la classe</li>
+        <li class="breadcrumb-item"><a href="{{ path('class.detail',{'id': class.id}) }}">{{class.ident}}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Modifier</li>
     </ol>
 </nav>
 <h1>Modifier la classe</h1>

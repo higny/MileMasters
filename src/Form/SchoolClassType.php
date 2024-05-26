@@ -15,11 +15,11 @@ class SchoolClassType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Niv', IntegerType::class, [
-                'label' => 'Niveau'
-            ])
             ->add('Ident', TextType::class, [
                 'label' => 'Identifiant'
+            ])
+            ->add('Niv', IntegerType::class, [
+                'label' => 'Niveau'
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer'

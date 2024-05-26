@@ -4,7 +4,7 @@
 <div class="row">
     <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Acceuil</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Accueil</a></li>
         <li class="breadcrumb-item"><a href="{{ path('test.index') }}">Épreuves</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{test.Name}}</li>
     </ol>
@@ -25,7 +25,7 @@
                 <dt class="col-sm-3">Date</dt>
                 <dd class="col-sm-9">{{ test.date | date('d/m/Y') }}</dd>
                 <dt class="col-sm-3">Heure de départ</dt>
-                <dd class="col-sm-9">{{ test.tstart| date('H:i') }}</dd>
+                <dd class="col-sm-9">{{ test.tstart is empty ? '-' : test.tstart| date('H:i') }}</dd>
                 <dt class="col-sm-3">Distance</dt>
                 <dd class="col-sm-9">{{ test.Dist }} KM</dd>
                 <dt class="col-sm-3">Nombre de participants</dt>
@@ -37,11 +37,92 @@
     <div class="card mt-5">
         <div class="card-header">Inscriptions</div>
         <div class="card-body">
-            <div class="list-group list-group-flush">
-                {% for entry in test.entries %}
-                    <a href="{{ path('entry.detail',{'id': entry.id}) }}" class="list-group-item list-group-item-action">{{ entry.NoDos}} - {{entry.student.Prenom}} {{entry.student.Nom}}</a>
-                {% endfor %}
-            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">N° Dossard</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Sexe</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for entry in test.entries %}
+                    <tr>
+                        <th scope="row">{{entry.NoDos}}</th>
+                        <td>{{entry.student.Prenom}}</td>
+                        <td>{{entry.student.Nom}}</td>
+                        <td><i class="bi bi-gender-{{ entry.student.Sexe ? 'male' : 'female' }}"></i></td>
+                        <td width="50px">
+                            <a class="btn btn-primary btn-sm" href="{{ path('entry.detail',{'id': entry.id}) }}" role="button"><i class="bi bi-eye-fill"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
+    <div class="row mt-5">
+    {% if runners %}
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    Classement des coureurs
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-sm">
+                        <tbody>
+                        {% for data in runners %}
+                            <tr>
+                                <td>
+                                {% if loop.index0 == 0 %}
+                                    <i class="bi bi-trophy-fill trophy-gold"></i>
+                                {% elseif loop.index0 == 1 %}
+                                    <i class="bi bi-trophy-fill trophy-silver"></i>
+                                {% elseif loop.index0 == 2 %}
+                                    <i class="bi bi-trophy-fill trophy-bronze"></i>
+                                {% endif %}
+                                </td>
+                                <td>{{ data.displayValue }}</td>
+                                <td>{{ data.formattedTemps }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if walkers %}
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                    Classement des marcheurs
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-sm">
+                        <tbody>
+                        {% for data in walkers %}
+                            <tr>
+                                <td>
+                                {% if loop.index0 == 0 %}
+                                    <i class="bi bi-trophy-fill trophy-gold"></i>
+                                {% elseif loop.index0 == 1 %}
+                                    <i class="bi bi-trophy-fill trophy-silver"></i>
+                                {% elseif loop.index0 == 2 %}
+                                    <i class="bi bi-trophy-fill trophy-bronze"></i>
+                                {% endif %}
+                                </td>
+                                <td>{{ data.displayValue }}</td>
+                                <td>{{ data.formattedTemps }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>    
+    {% endif %}
 {% endblock %}

@@ -1,18 +1,74 @@
 {% extends 'menu-layout.html.twig' %}
 
 {% block content %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Accueil</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Arrivées</li>
+    </ol>
+</nav>
+<div class="text-center" data-controller="arrival">
+    <div class="col-lg-6 mx-auto">
+        <h1 class="mb-4">Gestion des arrivées</h1>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <select class="form-select" id="testId">
+            {% for test in tests %}
+                <option value="{{test.id}}">{{test.name}}</option>
+            {% endfor %}
+            </select>
+            <button type="button" class="btn btn-primary" {{ stimulus_action('arrival', 'refresh') }}>Go</button>
+            
+        </div>
+    </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/wamp64/www/MileMasters/src/Controller/ArrivalController.php</code></li>
-        <li>Your template at <code>C:/wamp64/www/MileMasters/templates/arrival/index.html.twig</code></li>
-    </ul>
+    <div id="arrival-container" class="row mt-4 d-none">
+        <div class="col-lg-7 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row row-col-1 d-4 mx-5 g-3 text-start">
+                        <select class="form-select" id="entryId">
+                        </select>
+                        <button type="button" class="btn btn-primary" {{ stimulus_action('arrival', 'arrival') }}>Fin d'épreuve</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 mx-auto">
+            <div class="row mb-4" id="row-runners">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            Classement des coureurs
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-hover table-sm">
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="row-walkers">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            Classement des marcheurs
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-hover table-sm">
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
 </div>
+        
 {% endblock %}

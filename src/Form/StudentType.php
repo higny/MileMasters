@@ -7,6 +7,8 @@ use App\Entity\Student;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,11 +18,21 @@ class StudentType extends AbstractType
     {
         $builder
             ->add('Nom')
-            ->add('Prenom')
-            ->add('Sexe')
+            ->add('Prenom', TextType::class, [
+                "label" => "Prénom"
+            ])
+            ->add('Sexe', ChoiceType::class, [
+                'choices' => [
+                    'Homme' => true,
+                    'Femme' => false,
+                ],
+                'expanded' => true,
+                'multiple' => false,
+            ])
             ->add('Class', EntityType::class, [
                 'class' => SchoolClass::class,
-'choice_label' => 'ident',
+                'choice_label' => 'ident',
+                'label' => 'Classe'
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer'

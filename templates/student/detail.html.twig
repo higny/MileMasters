@@ -4,7 +4,7 @@
 <div class="row">
     <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Acceuil</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Accueil</a></li>
         <li class="breadcrumb-item"><a href="{{ path('student.index') }}">Étudiants</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{student.Prenom}} {{student.Nom}}</li>
     </ol>
@@ -25,21 +25,38 @@
                 <dt class="col-sm-3">Nom</dt>
                 <dd class="col-sm-9">{{student.Nom}}</dd>
                 <dt class="col-sm-3">Sexe</dt>
-                <dd class="col-sm-9">{{student.Sexe}}</dd>
+                <dd class="col-sm-9"><i class="bi bi-gender-{{ student.Sexe ? 'male' : 'female' }}"></i></dd>
                 <dt class="col-sm-3">Classe</dt>
-                <dd class="col-sm-9"><a class="btn btn-link ps-0" href="{{ path('class.detail',{'id': student.Class.id}) }}" role="button">{{ student.Class.Ident }}</a></dd>
+                <dd class="col-sm-9"><a class="btn btn-link p-0" href="{{ path('class.detail',{'id': student.Class.id}) }}" role="button">{{ student.Class.Ident }}</a></dd>
             </dl>
         </div>
     </div>
 
+{% if student.entries is not empty %}
     <div class="card mt-5">
         <div class="card-header">Inscriptions</div>
         <div class="card-body">
-            <div class="list-group list-group-flush">
-                {% for entry in student.entries %}
-                    <a href="{{ path('entry.detail',{'id': entry.id}) }}" class="list-group-item list-group-item-action">{{ entry.NoDos}} - {{entry.Test.Name}}</a>
-                {% endfor %}
-            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">N° Dossard</th>
+                        <th scope="col">Épreuves</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for entry in student.entries %}
+                    <tr>
+                        <th scope="row">{{entry.NoDos}}</th>
+                        <td>{{ entry.Test.Name }}</td>
+                        <td width="50px">
+                            <a class="btn btn-primary btn-sm" href="{{ path('entry.detail',{'id': entry.id}) }}" role="button"><i class="bi bi-eye-fill"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
+{% endif %}
 {% endblock %}

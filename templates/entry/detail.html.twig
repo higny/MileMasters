@@ -4,9 +4,9 @@
 <div class="row">
     <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Acceuil</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Accueil</a></li>
         <li class="breadcrumb-item"><a href="{{ path('test.index') }}">Inscriptions</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{entry.NoDos}}</li>
+        <li class="breadcrumb-item active" aria-current="page">N° Dossard : {{entry.NoDos}}</li>
     </ol>
     </nav>
 </div>
@@ -27,13 +27,13 @@
                 <dt class="col-sm-3">Heure de départ</dt>
                 <dd class="col-sm-9">{{ entry.tstart| date('H:i') }}</dd>
                 <dt class="col-sm-3">Heure d'arrivée</dt>
-                <dd class="col-sm-9">{{ entry.tend| date('H:i') }}</dd>
+                <dd class="col-sm-9">{{ entry.tend is empty ? '-' : entry.tend| date('H:i') }}</dd>
                 <dt class="col-sm-3">Temps</dt>
-                <dd class="col-sm-9">{{ entry.Temps }}</dd>
+                <dd class="col-sm-9">{{ entry.Temps is empty ? '-' : entry.Temps }}</dd>
                 <dt class="col-sm-3">Participant</dt>
-                <dd class="col-sm-9">{{ entry.student.Prenom }} {{ entry.student.Nom }}</dd>
+                <dd class="col-sm-9"><a class="btn btn-link p-0" href="{{ path('student.detail',{'id': entry.student.id}) }}" role="button">{{ entry.student.Prenom }} {{ entry.student.Nom }}</a></dd>
                 <dt class="col-sm-3">Épreuve</dt>
-                <dd class="col-sm-9">{{ entry.test.Name }}</dd>
+                <dd class="col-sm-9"><a class="btn btn-link p-0" href="{{ path('test.detail',{'id': entry.test.id}) }}" role="button">{{ entry.test.Name }}</a></dd>
             </dl>
         </div>
     </div>

@@ -3,13 +3,14 @@
 {% block content %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Acceuil</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Accueil</a></li>
         <li class="breadcrumb-item"><a href="{{ path('entry.index') }}">Inscriptions</a></li>
-        <li class="breadcrumb-item"><a href="{{ path('entry.detail',{'id': entry.id}) }}">{{entry.NoDos}}</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('entry.detail',{'id': entry.id}) }}">N° Dossard : {{entry.NoDos}}</a></li>
         <li class="breadcrumb-item active" aria-current="page">Modifier</li>
     </ol>
 </nav>
 <h1>Modifier l'inscription</h1>
-
+<div data-controller="entryForm">
     {{ form(form) }}
+</div>
 {% endblock %}

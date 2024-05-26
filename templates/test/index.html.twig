@@ -4,7 +4,7 @@
 <div class="row g-4 row-cols-1 row-cols-lg-5">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Acceuil</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('home.index') }}">Accueil</a></li>
             <li class="breadcrumb-item active" aria-current="page">Épreuves</li>
         </ol>
     </nav>
@@ -31,13 +31,11 @@
                 <th scope="row">{{ test.id}}</th>
                 <td>{{ test.name }}</td>
                 <td>{{ test.date | date('d/m/Y') }}</td>
-                <td>{{ test.tstart| date('H:i') }}</td>
+                <td>{{ test.tstart is empty ? '-' : test.tstart| date('H:i') }}</td>
                 <td>{{ test.Dist }} KM</td>
                 <td></td>
-                <td width="150px">
+                <td width="50px">
                     <a class="btn btn-primary btn-sm" href="{{ path('test.detail',{'id': test.id}) }}" role="button"><i class="bi bi-eye-fill"></i></a>
-                    <a class="btn btn-success btn-sm" href="{{ path('test.edit',{'id': test.id}) }}" role="button"><i class="bi bi-pencil-fill"></i></a>
-                    <a class="btn btn-danger btn-sm" href="{{ path('test.delete',{'id': test.id}) }}" role="button"><i class="bi bi-trash-fill"></i></a>            
                 </td>
             </tr>
         {% endfor %}

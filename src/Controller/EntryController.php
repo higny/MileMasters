@@ -40,9 +40,10 @@ class EntryController extends AbstractController
         $form = $this->createForm(EntryType::class, $entry);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $entry->setNoDos($em->getRepository(Entry::class)->getNextNoDos());
             $em->persist($entry);
             $em->flush();
-            $this->addFlash('success', "L'inscription a bien été créée");
+            $this->addFlash('success', "L'inscription a bien été créée, N° Dossard : " . $entry->getNoDos());
             return $this->redirectToRoute('entry.index');
         }
         return $this->render('entry/create.html.twig', [
