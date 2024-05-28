@@ -9,6 +9,9 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Entry;
+use App\Entity\SchoolClass;
+use App\Entity\Student;
+use App\Entity\Test;
 use App\Form\EntryType;
 use App\Repository\EntryRepository;
 
@@ -17,14 +20,43 @@ use App\Repository\EntryRepository;
 class EntryController extends AbstractController
 {
     #[Route('/', name: 'entry.index')]
-    public function index(EntryRepository $repository): Response
+    public function index(EntityManagerInterface $em): Response
     {
-        $entries = $repository->findAll();
+        $entries = $em->getRepository(Entry::class)->findAll();
         if (count($entries) > 0) {
             return $this->render('entry/index.html.twig', [
                 'entries' => $entries,
             ]);
         } else {
+            $classes = $em->getRepository(SchoolClass::class)->findAll();
+            if ($classes == null)
+            {
+                return $this->render('shared/empty.html.twig', [
+                    "message" => "Il n'y a pas encore de classe enregistrée, veuillez en créer une pour pouvoir enregistrer vos élèves !",
+                    'redirectLabel' => 'Créer une classe',
+                    'redirectLink' => 'class.create'
+                ]);
+            }
+
+            $students = $em->getRepository(Student::class)->findAll();
+            if ($students == null)
+            {
+                return $this->render('shared/empty.html.twig', [
+                    "message" => "Il n'y a pas encore d'étudiant enregistré, veuillez en créer un pour pouvoir l'inscrire aux épreuves !",
+                    'redirectLabel' => 'Créer un étudiant',
+                    'redirectLink' => 'student.create'
+                ]);
+            }
+
+            $tests = $em->getRepository(Test::class)->findAll();
+            if ($tests == null)
+            {
+                return $this->render('shared/empty.html.twig', [
+                    "message" => "Il n'y a pas encore d'épreuve enregistrée, veuillez en créer une pour pouvoir inscrire vos élèves !",
+                    'redirectLabel' => 'Créer une épreuve',
+                    'redirectLink' => 'test.create'
+                ]);
+            }
             return $this->render('shared/empty.html.twig', [
                 "message" => "Il n'y a pas encore d'inscription enregistrée, créez en pour que vos élèves participe aux épreuves !",
                 'redirectLabel' => 'Créer une inscription',
@@ -56,6 +88,13 @@ class EntryController extends AbstractController
     {
         $entry = $repository->findOneBy(['id' => $id]);
         if ($entry != null) {
+            if ($entry->getTemps() != null) 
+            {
+                $hours = $entry->getTemps()->h + ($entry->getTemps()->d * 24);
+                $minutes = $entry->getTemps()->i;
+
+                $entry->setFormattedTemps(sprintf('%02d Heures et %02d minutes', $hours, $minutes));
+            }
             return $this->render('entry/detail.html.twig', [
                 'entry' => $entry,
             ]);

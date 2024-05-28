@@ -26,12 +26,14 @@ class EntryRepository extends ServiceEntityRepository
     */
     public function findLastNoDos(): ?int
     {
-        return $this->createQueryBuilder('e')
+        $result = $this->createQueryBuilder('e')
             ->select('e.NoDos')
             ->orderBy('e.NoDos', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
-            ->getSingleScalarResult();
+            ->getOneOrNullResult();
+        
+        return $result !== null ? (int) $result['NoDos'] : null;
     }
 
    /**

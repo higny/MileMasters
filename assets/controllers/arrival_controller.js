@@ -5,18 +5,28 @@ export default class extends Controller {
     connect() {
     }
 
+    /**
+     * Trigger par le bouton "Go"
+     */
     refresh() {
         const selectedTest = document.getElementById('testId');
 
         this.fetchValue(selectedTest.value);
     }
 
+    /**
+     * trigger par le bouton "Fin d'épreuve"
+     */
     arrival() {
         const entrySelect = document.getElementById('entryId');
 
         this.finish(entrySelect.value);
     }
 
+    /**
+     * Termine la course / marche d'un participant
+     * @param {*} id 
+     */
     finish = (id) => {
         fetch(`/arrivées/${id}`, {
             method: 'GET',
@@ -29,6 +39,10 @@ export default class extends Controller {
         .then(data => this.handleResponse(data));
     }
 
+    /**
+     * Effectue le call XHR pour récupérer le détail d'une épreuve
+     * @param {*} id 
+     */
     fetchValue = (id) => {
         document.getElementById('arrival-container').classList.add('d-none');
 
@@ -43,10 +57,23 @@ export default class extends Controller {
         .then(data => this.handleResponse(data));
     }
 
+    /**
+     * Gère le retour du call Ajax
+     * @param {*} data 
+     */
     handleResponse(data) {
         const entrySelect = document.getElementById('entryId');
 
         entrySelect.innerHTML = '';
+
+        if (data.entries.length > 0) {
+            document.getElementById('arrival-select-container').classList.remove('d-none');
+            document.getElementById('arrival-select-empty-container').classList.add('d-none');
+        } else {
+            document.getElementById('arrival-select-container').classList.add('d-none');
+            document.getElementById('arrival-select-empty-container').classList.remove('d-none');
+        }
+
 
         data.entries.forEach(entry => {
             var opt = document.createElement('option');
@@ -61,9 +88,16 @@ export default class extends Controller {
         document.getElementById('arrival-container').classList.remove('d-none');
     }
 
+    /**
+     * Rempli le tableau de ranking
+     * @param {*} elementName 
+     * @param {*} list 
+     */
     handleRanking(elementName, list) {
         const container = document.getElementById(elementName)
         const table = document.querySelector(`#${elementName} tbody`);
+
+        table.innerHTML = '';
 
         if (list.length > 0) {
             const trophy = ['trophy-gold', 'trophy-silver', 'trophy-bronze']
@@ -71,7 +105,6 @@ export default class extends Controller {
             list.forEach((data, idx) => {
                 var tr = document.createElement('tr');
                 var td = document.createElement('td');
-
                 if (idx < 3) {
                     var i = document.createElement('i');
                     i.classList.add('bi', 'bi-trophy-fill', trophy[idx]);

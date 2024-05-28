@@ -24,10 +24,14 @@ class TestType extends AbstractType
                 'label' => 'Date de départ',
             ])
             ->add('Tstart', TimeType::class, [
+                'required' => false,
                 'label' => 'Heure de départ',
             ])
             ->add('Dist', IntegerType::class, [
                 'label' => 'Distance (KM)',
+            ])
+            ->add('AnSco', IntegerType::class, [
+                'label' => 'Année scolaire',
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer'

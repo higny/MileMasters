@@ -26,10 +26,14 @@
         <div class="col-lg-7 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    <div class="row row-col-1 d-4 mx-5 g-3 text-start">
+                    <div id="arrival-select-container" class="row row-col-1 d-4 mx-5 g-3 text-start d-none">
                         <select class="form-select" id="entryId">
                         </select>
                         <button type="button" class="btn btn-primary" {{ stimulus_action('arrival', 'arrival') }}>Fin d'épreuve</button>
+                    </div>
+
+                    <div id="arrival-select-empty-container" class="row row-col-1 d-4 mx-5 g-3 text-start d-none">
+                        <p class="lead text-center mt-4">Tous les participants sont arrivés, l'épreuve est terminée !</p>
                     </div>
                 </div>
             </div>

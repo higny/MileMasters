@@ -113,7 +113,7 @@ class TestController extends AbstractController
             return $this->notFound();
         }
 
-        if (count($class->getEntries()) > 0) {
+        if (count($test->getEntries()) > 0) {
             $this->addFlash('danger', "Impossible de supprimer l'épreuve, il y a encore des inscriptions associées !");
             return $this->redirectToRoute('test.index');
         }

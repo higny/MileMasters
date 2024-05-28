@@ -10,10 +10,16 @@
     </ol>
     </nav>
 </div>
-<div class="row justify-content-md-end">
+<div data-controller="test" class="row justify-content-md-end">
     <div class="col-4 d-flex gap-2 justify-content-md-end">
         <a class="btn btn-success btn-sm" href="{{ path('test.edit',{'id': test.id}) }}" role="button"><i class="bi bi-pencil-fill"></i> Modifier</a>
+        {% if test.entries|length < 1 %}
         <a class="btn btn-danger btn-sm" href="{{ path('test.delete',{'id': test.id}) }}" role="button"><i class="bi bi-trash-fill"></i> Supprimer</a>
+        {% else %}
+        <span class="d-grid p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Impossible de supprimer cette épreuve, il y a encore des inscriptions !">
+            <a class="btn btn-danger btn-sm disabled" href="{{ path('test.delete',{'id': test.id}) }}" role="button"><i class="bi bi-trash-fill"></i> Supprimer</a>
+        </span>
+        {% endif %}
     </div>
 </div>
     <div class="card mt-5">
@@ -28,6 +34,8 @@
                 <dd class="col-sm-9">{{ test.tstart is empty ? '-' : test.tstart| date('H:i') }}</dd>
                 <dt class="col-sm-3">Distance</dt>
                 <dd class="col-sm-9">{{ test.Dist }} KM</dd>
+                <dt class="col-sm-3">Année scolaire</dt>
+                <dd class="col-sm-9">{{ test.AnSco is empty ? '-' : test.AnSco }}</dd>
                 <dt class="col-sm-3">Nombre de participants</dt>
                 <dd class="col-sm-9">-</dd>
             </dl>

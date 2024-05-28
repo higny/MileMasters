@@ -32,4 +32,24 @@ class TestRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+     
+    
+    public function getSummary()
+    {
+        return $this->createQueryBuilder('t')
+            ->select(
+                't.Name',
+                'COUNT(e.id) AS totalEntries',
+                'SUM(CASE WHEN e.Tend IS NOT NULL AND e.Rw = true THEN 1 ELSE 0 END) AS runners',
+                'SUM(CASE WHEN e.Tend IS NOT NULL AND e.Rw = false THEN 1 ELSE 0 END) AS walkers',
+                'SUM(CASE WHEN e.Tend IS NULL THEN 1 ELSE 0 END) AS abstentions'
+            )
+            ->leftJoin('t.entries', 'e')
+            ->groupBy('t.id')
+            ->orderBy('t.Date', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
 }

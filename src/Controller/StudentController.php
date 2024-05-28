@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\SchoolClass;
 use App\Entity\Student;
 use App\Form\StudentType;
 use App\Repository\StudentRepository;
@@ -17,14 +18,24 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class StudentController extends AbstractController
 {
     #[Route('/', name: 'student.index')]
-    public function index(StudentRepository $repository): Response
+    public function index(EntityManagerInterface $em): Response
     {
-        $students = $repository->findAll();
+        $students = $em->getRepository(Student::class)->findAll();
         if (count($students) > 0) {
             return $this->render('student/index.html.twig', [
                 'students' => $students,
             ]);
         } else {
+            $classes = $em->getRepository(SchoolClass::class)->findAll();
+            if ($classes == null)
+            {
+                return $this->render('shared/empty.html.twig', [
+                    "message" => "Il n'y a pas encore de classe enregistrée, veuillez en créer une pour pouvoir enregistrer vos élèves !",
+                    'redirectLabel' => 'Créer une classe',
+                    'redirectLink' => 'class.create'
+                ]);
+            }
+
             return $this->render('shared/empty.html.twig', [
                 "message" => "Il n'y a pas encore d'étudiant enregistré, veuillez en créer un pour pouvoir l'inscrire aux épreuves !",
                 'redirectLabel' => 'Créer un étudiant',

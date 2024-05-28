@@ -37,6 +37,8 @@ class Entry
     #[ORM\JoinColumn(nullable: false)]
     private ?Student $student = null;
 
+    private ?string $formattedTemps = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +90,18 @@ class Entry
         $this->Tend = $Tend;
 
         return $this;
+    }
+
+    public function setFormattedTemps(string $formatted): static
+    {
+        $this->formattedTemps = $formatted;
+
+        return $this;
+    }
+
+    public function getFormattedTemps(): ?string
+    {
+        return $this->formattedTemps;
     }
 
     public function getTemps(): ?\DateInterval

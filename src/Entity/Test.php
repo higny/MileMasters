@@ -31,6 +31,9 @@ class Test
     #[ORM\OneToMany(targetEntity: Entry::class, mappedBy: 'Test')]
     private Collection $entries;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $AnSco = null;
+
     public function __construct()
     {
         $this->entries = new ArrayCollection();
@@ -115,6 +118,18 @@ class Test
                 $entry->setTests(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAnSco(): ?int
+    {
+        return $this->AnSco;
+    }
+
+    public function setAnSco(?int $AnSco): static
+    {
+        $this->AnSco = $AnSco;
 
         return $this;
     }

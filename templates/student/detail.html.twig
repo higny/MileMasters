@@ -10,10 +10,16 @@
     </ol>
     </nav>
 </div>
-<div class="row justify-content-md-end">
+<div data-controller="student" class="row justify-content-md-end">
     <div class="col-4 d-flex gap-2 justify-content-md-end">
         <a class="btn btn-success btn-sm" href="{{ path('student.edit',{'id': student.id}) }}" role="button"><i class="bi bi-pencil-fill"></i> Modifier</a>
+        {% if student.entries|length < 1 %}
         <a class="btn btn-danger btn-sm" href="{{ path('student.delete',{'id': student.id}) }}" role="button"><i class="bi bi-trash-fill"></i> Supprimer</a>
+        {% else %}
+        <span class="d-grid p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Impossible de supprimer cet étudiant, il y a encore des inscriptions !">
+            <a class="btn btn-danger btn-sm disabled" href="{{ path('student.delete',{'id': student.id}) }}" role="button"><i class="bi bi-trash-fill"></i> Supprimer</a>
+        </span>
+        {% endif %}
     </div>
 </div>
     <div class="card mt-5">
@@ -22,6 +28,8 @@
             <dl class="row">
                 <dt class="col-sm-3">ID</dt>
                 <dd class="col-sm-9">{{student.Id}}</dd>
+                <dt class="col-sm-3">Prénom</dt>
+                <dd class="col-sm-9">{{student.Prenom}}</dd>
                 <dt class="col-sm-3">Nom</dt>
                 <dd class="col-sm-9">{{student.Nom}}</dd>
                 <dt class="col-sm-3">Sexe</dt>

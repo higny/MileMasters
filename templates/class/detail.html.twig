@@ -10,10 +10,17 @@
     </ol>
     </nav>
 </div>
-<div class="row justify-content-md-end">
+<div data-controller="class" class="row justify-content-md-end">
     <div class="col-4 d-flex gap-2 justify-content-md-end">
         <a class="btn btn-success btn-sm" href="{{ path('class.edit',{'id': class.id}) }}" role="button"><i class="bi bi-pencil-fill"></i> Modifier</a>
+        {% if class.students|length < 1 %}
         <a class="btn btn-danger btn-sm" href="{{ path('class.delete',{'id': class.id}) }}" role="button"><i class="bi bi-trash-fill"></i> Supprimer</a>
+        {% else %}
+        <span class="d-grid p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Impossible de supprimer cette classe, il y a encore des étudiants !">
+            <a class="btn btn-danger btn-sm disabled" href="{{ path('class.create')}}" role="button"><i class="bi bi-trash-fill"></i> Supprimer</a>
+        </span>
+        {% endif %}
+
     </div>
 </div>
     <div class="card mt-5">

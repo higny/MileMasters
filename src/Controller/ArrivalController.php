@@ -19,6 +19,10 @@ class ArrivalController extends AbstractController
     public function index(EntityManagerInterface $em): Response
     {
         $tests = $em->getRepository(Test::class)->findAllWithEmptyTend();
+        if ($tests == null)
+        {
+            return $this->render('arrival/empty.html.twig');
+        }
         return $this->render('arrival/index.html.twig', [
             'tests' => $tests,
         ]);
@@ -53,9 +57,11 @@ class ArrivalController extends AbstractController
         $em->persist($entry);
         $em->flush();
 
-        $entries = $em->getRepository(Entry::class)->findEntriesByTestIdWithNullTendAndStudent($id);
-        $runners = $em->getRepository(Entry::class)->findEntriesWithTendAndOrderedByTemps($id, true);
-        $walkers = $em->getRepository(Entry::class)->findEntriesWithTendAndOrderedByTemps($id, false);
+        $testId = $entry->getTest()->getId();
+
+        $entries = $em->getRepository(Entry::class)->findEntriesByTestIdWithNullTendAndStudent($testId);
+        $runners = $em->getRepository(Entry::class)->findEntriesWithTendAndOrderedByTemps($testId, true);
+        $walkers = $em->getRepository(Entry::class)->findEntriesWithTendAndOrderedByTemps($testId, false);
 
         return new JsonResponse([
             'entries' => $entries,

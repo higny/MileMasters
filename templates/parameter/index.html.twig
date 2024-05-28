@@ -1,0 +1,51 @@
+{% extends 'menu-layout.html.twig' %}
+
+{% block content %}
+<div id="main-container" class="container">
+    <div class="px-4 py-5 mx-5 text-center">
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">
+                Ce bouton permet d'effacer toutes les données encodées ( classes,
+                étudiants, épreuves, inscriptions et arrivées)
+            </p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <button type="button" class="btn btn-primary btn-lg px-4 gap-3" data-bs-toggle="modal" data-bs-target="#resetModal">
+                    Réinitialiser les données
+                </button>
+            </div>
+        </div>
+    </div>
+    {% if allowFillData %}
+    <div class="px-4 py-5 mx-5 text-center">
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">
+                Ce bouton permet d'ajouter des données de tests ( classes,
+                étudiants, épreuves, inscriptions et arrivées)
+            </p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a class="btn btn-primary btn-lg px-4 gap-3" href="{{ path('parameter.fill') }}">
+                    Ajouter un jeu de données
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p class="lead">Êtes-vous sûr de vouloir réinitialiser toutes les données ? <br> Attention, cette action est irréversible !</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <a type="button" class="btn btn-danger" href="{{ path('parameter.reset') }}">Réinitialiser</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% include 'shared/flash.html.twig' %}
+
+{% endblock %}

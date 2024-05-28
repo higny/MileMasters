@@ -10,10 +10,16 @@
     </ol>
     </nav>
 </div>
-<div class="row justify-content-md-end">
+<div data-controller="entry" class="row justify-content-md-end">
     <div class="col-4 d-flex gap-2 justify-content-md-end">
         <a class="btn btn-success btn-sm" href="{{ path('entry.edit',{'id': entry.id}) }}" role="button"><i class="bi bi-pencil-fill"></i> Modifier</a>
+        {% if entry.tend is empty %}
         <a class="btn btn-danger btn-sm" href="{{ path('entry.delete',{'id': entry.id}) }}" role="button"><i class="bi bi-trash-fill"></i> Supprimer</a>
+        {% else %}
+        <span class="d-grid p-0" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Impossible de supprimer cette inscription, l'arrivée a été encodée !">
+            <a class="btn btn-danger btn-sm disabled" href="{{ path('entry.delete',{'id': entry.id}) }}" role="button"><i class="bi bi-trash-fill"></i> Supprimer</a>
+        </span>
+        {% endif %}
     </div>
 </div>
     <div class="card mt-5">
@@ -29,7 +35,7 @@
                 <dt class="col-sm-3">Heure d'arrivée</dt>
                 <dd class="col-sm-9">{{ entry.tend is empty ? '-' : entry.tend| date('H:i') }}</dd>
                 <dt class="col-sm-3">Temps</dt>
-                <dd class="col-sm-9">{{ entry.Temps is empty ? '-' : entry.Temps }}</dd>
+                <dd class="col-sm-9">{{ entry.Temps is empty ? '-' : entry.formattedTemps }}</dd>
                 <dt class="col-sm-3">Participant</dt>
                 <dd class="col-sm-9"><a class="btn btn-link p-0" href="{{ path('student.detail',{'id': entry.student.id}) }}" role="button">{{ entry.student.Prenom }} {{ entry.student.Nom }}</a></dd>
                 <dt class="col-sm-3">Épreuve</dt>
